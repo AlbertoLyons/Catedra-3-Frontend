@@ -16,5 +16,11 @@ export const routes: Routes = [
         path: 'posts',
         component: PostsComponent,
         canActivate: [authGuard]
-    }
+    },
+    {
+        path: '',
+        redirectTo: '/posts',
+        pathMatch: 'full'
+
+    },
 ];
