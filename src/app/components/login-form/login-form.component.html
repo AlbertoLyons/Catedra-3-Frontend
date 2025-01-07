@@ -41,6 +41,9 @@
             >
                 Iniciar sesión
             </button>
+            <div *ngIf="invalidLogin" class="text-red-500 text-sm">
+                Credenciales incorrectas
+            </div>
         </div>
     </form>
 </div>

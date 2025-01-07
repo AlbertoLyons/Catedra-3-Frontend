@@ -18,6 +18,7 @@ export class LoginFormComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly localStorageService = inject(LocalStorageService);
+  protected invalidCredentials = false;
   protected invalidLogin = false;
   protected readonly loginForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -56,8 +57,10 @@ export class LoginFormComponent {
       error: (error) => {
         let e = this.authService.errors;
         console.log('Error', e);
+        this.invalidLogin = true;
         if (e.pop()!.includes('401')) {
           this.invalidLogin = true;
+          
         }
       },
     });
