@@ -1,42 +1,46 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <!-- Login data -->
-    <div>
-        <!-- Email -->
-        <label class=" text-2xl" for="email">Correo electrónico</label>
-        <input
-            class="border-2 border-gray-300 rounded-md p-2 m-2"
-            id="email"
-            type="email"
-            formControlName="email"
-            [class.border-red-500]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
-        />
-        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error-message">
-            {{ getFieldError('email') }}
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <form
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmit()"
+        class="bg-white shadow-md rounded-lg p-8 w-full max-w-md"
+    >
+        <!-- Login data -->
+        <div>
+            <!-- Email -->
+            <label class="text-2xl block mb-2" for="email">Correo electrónico</label>
+            <input
+                class="border-2 border-gray-300 rounded-md p-2 w-full"
+                id="email"
+                type="email"
+                formControlName="email"
+                [class.border-red-500]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+            />
+            <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-red-500 text-sm">
+                {{ getFieldError('email') }}
+            </div>
+            <!-- Password -->
+            <label class="text-2xl block mb-2 mt-4" for="password">Contraseña</label>
+            <input
+                class="border-2 border-gray-300 rounded-md p-2 w-full"
+                id="password"
+                type="password"
+                formControlName="password"
+                [class.border-red-500]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+            />
+            <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-red-500 text-sm">
+                {{ getFieldError('password') }}
+            </div>
         </div>
-        <!-- Password -->
-        <label class=" text-2xl" for="password">Contraseña</label>
-        <input
-            class="border-2 border-gray-300 rounded-md p-2 m-2"
-            id="password"
-            type="password"
-            formControlName="password"
-            [class.border-red-500]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
-        />
-        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error-message">
-            {{ getFieldError('password') }}
+        <!-- Button -->
+        <div class="pt-5">
+            <button
+                class="bg-blue-500 text-white font-semibold rounded-md p-3 w-full transition-opacity"
+                [ngClass]="{ 'opacity-50 cursor-not-allowed': loginForm.invalid }"
+                type="submit"
+                [disabled]="loginForm.invalid"
+            >
+                Iniciar sesión
+            </button>
         </div>
-    </div>
-    <!-- Buton -->
-    <div class="form-group pt-5 text-2xl">
-        <button
-        class="bg-[#668cff] w-full text-black font-semibold rounded-md p-5 transition-opacity"
-        [ngClass]="{ 'opacity-50 cursor-not-allowed': loginForm.invalid}"
-        type="submit"
-        [disabled]="loginForm.invalid"
-        >
-            <ng-template #normal>
-            Iniciar sesión
-            </ng-template>
-        </button>    
-        </div>
-</form>
+    </form>
+</div>
