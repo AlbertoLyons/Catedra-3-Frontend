@@ -26,7 +26,13 @@ export class PostService {
   }
   async createPost(post: CreatePost): Promise<void> {
     try{
-      await firstValueFrom(this.http.put(`${this.baseUrl}`, post));
+      const formData = new FormData();
+      formData.append('title', post.title);
+      formData.append('postDate', post.postDate);
+      formData.append('image', post.image[0]);
+      formData.append('userId', post.userId);
+
+      await firstValueFrom(this.http.post(`${this.baseUrl}`, formData));
       return Promise.resolve();
     }catch(error){
       console.log("Error on createPost",error)

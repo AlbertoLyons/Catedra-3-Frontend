@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [],
+  imports: [RouterOutlet],
   templateUrl: './post.component.html',
   styleUrl: './post.component.css'
 })

@@ -1,34 +1,47 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { PostsComponent } from './pages/posts/posts.component';
 import { authGuard } from './guards/auth.guard';
-import { CreatePostFormComponent } from './components/create-post-form/create-post-form.component';
 export const routes: Routes = [
     {
         path: 'login',
-        pathMatch: 'full',
-        component: LoginComponent,
+        loadComponent: () =>
+            import('./pages/login/login.component').then(
+              (m) => m.LoginComponent
+            ),
     },
     {
         path: 'register',
-        component: RegisterComponent,
+        loadComponent: () =>
+            import('./pages/register/register.component').then(
+              (m) => m.RegisterComponent
+            ),
     },
     {
         path: 'posts',
-        component: PostsComponent,
+        loadComponent: () =>
+            import('./pages/posts/posts.component').then(
+              (m) => m.PostsComponent
+            ),
+        
         children: [
             {
-                //path: 'create',
-                //component: CreatePostFormComponent,
+                path: 'create',
+                loadComponent: () =>
+                    import('./components/create-post-form/create-post-form.component').then(
+                      (m) => m.CreatePostFormComponent
+                ),
             }
         ],
+        
         //canActivate: [authGuard]
+
     },
     {
         
-            path: 'posts/create',
-            component: CreatePostFormComponent,
+        path: 'posts/create',
+        loadComponent: () =>
+            import('./components/create-post-form/create-post-form.component').then(
+              (m) => m.CreatePostFormComponent
+            ),
         
     },
     {

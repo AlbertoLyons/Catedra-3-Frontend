@@ -47,7 +47,7 @@ export class LoginFormComponent {
         if (response) {
           if (response.token) {
             this.localStorageService.setVariable('token', response.token);
-            this.localStorageService.setVariable('user', JSON.stringify(response));
+            this.localStorageService.setVariable('user', response);
             this.showSuccessModal = true;
             setTimeout(() => {
               this.router.navigate(['posts']);
