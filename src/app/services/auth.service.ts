@@ -11,11 +11,11 @@ import { RegisterDTO } from '../interfaces/register-dto';
 })
 export class AuthService {
   private readonly http = inject(HttpClient);
-  private readonly baseUrl = environment.apiUrl;
+  private readonly baseUrl = environment.apiUrl + "/auth";
   public errors: string[] = [];
 
   login(loginData: LoginDTO): Observable<Auth> {
-    return this.http.post<Auth>(`${this.baseUrl}/auth/login`, loginData).pipe(
+    return this.http.post<Auth>(`${this.baseUrl}/login`, loginData).pipe(
       catchError((error: HttpErrorResponse) => {
         console.log('Error on login',error);
         this.errors.push(error.message || 'Unknown error');
@@ -24,7 +24,7 @@ export class AuthService {
     );
   }
   register(registerData: RegisterDTO): Observable<Auth> {
-    return this.http.post<Auth>(`${this.baseUrl}/auth/register`, registerData).pipe(
+    return this.http.post<Auth>(`${this.baseUrl}/register`, registerData).pipe(
       catchError((error: HttpErrorResponse) => {
         console.log('Error on register',error);
         this.errors.push(error.message || 'Unknown error');

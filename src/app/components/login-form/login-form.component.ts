@@ -20,6 +20,7 @@ export class LoginFormComponent {
   private readonly localStorageService = inject(LocalStorageService);
   protected invalidCredentials = false;
   protected invalidLogin = false;
+  protected showSuccessModal = false;
   protected readonly loginForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: [
@@ -47,7 +48,10 @@ export class LoginFormComponent {
           if (response.token) {
             this.localStorageService.setVariable('token', response.token);
             this.localStorageService.setVariable('user', JSON.stringify(response));
-            this.router.navigate(['posts']);            
+            this.showSuccessModal = true;
+            setTimeout(() => {
+              this.router.navigate(['posts']);
+            }, 2000);
           }
         } else {
           this.invalidLogin = true;
@@ -60,7 +64,7 @@ export class LoginFormComponent {
         this.invalidLogin = true;
         if (e.pop()!.includes('401')) {
           this.invalidLogin = true;
-          
+          this.loginForm.get('password')?.reset();
         }
       },
     });

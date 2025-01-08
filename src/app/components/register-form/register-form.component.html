@@ -1,1 +1,64 @@
-<p>register-form works!</p>
+<div class="flex flex-col items-center justify-center min-h-screen text-center bg-gray-100">
+    <h1 class="text-4xl font-semibold mb-8">
+        Registro
+    </h1>
+    <form
+        [formGroup]="registerForm"
+        (ngSubmit)="onSubmit()"
+        class="bg-white shadow-md rounded-lg p-8 w-full max-w-md"
+    >
+        <!-- Login data -->
+        <div>
+            <!-- Email -->
+            <label class="text-2xl block mb-2" for="email">Correo electrónico</label>
+            <input
+                class="border-2 border-gray-300 rounded-md p-2 w-full"
+                id="email"
+                type="email"
+                formControlName="email"
+                [class.border-red-500]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+            />
+            <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-red-500 text-sm">
+                {{ getFieldError('email') }}
+            </div>
+            <!-- Password -->
+            <label class="text-2xl block mb-2 mt-4" for="password">Contraseña</label>
+            <input
+                class="border-2 border-gray-300 rounded-md p-2 w-full"
+                id="password"
+                type="password"
+                formControlName="password"
+                [class.border-red-500]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+            />
+            <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-red-500 text-sm">
+                {{ getFieldError('password') }}
+            </div>
+        </div>
+        <!-- Button -->
+        <div class="pt-5">
+            <button
+                class="bg-blue-500 text-white font-semibold rounded-md p-3 w-full transition-opacity"
+                [ngClass]="{ 'opacity-50 cursor-not-allowed': registerForm.invalid }"
+                type="submit"
+                [disabled]="registerForm.invalid"
+            >
+                Registrarse
+            </button>
+            <div *ngIf="invalidRegister" class="text-red-500 text-sm">
+                Este correo ya existe
+            </div>
+        </div>
+    </form>
+</div>
+<!-- Success modal -->
+<div
+    *ngIf="showSuccessModal"
+    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+>
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center max-w-sm">
+        <h2 class="text-2xl font-semibold mb-4">Registro exitoso</h2>
+        <p class="text-gray-700 mb-4">
+            ¡Tu cuenta ha sido creada con éxito! Serás redirigido al inicio de sesión.
+        </p>
+    </div>
+</div>
