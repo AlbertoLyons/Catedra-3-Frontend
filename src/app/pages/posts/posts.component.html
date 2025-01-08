@@ -1,1 +1,18 @@
-<p>posts works!</p>
+<body class="bg-slate-300 min-h-screen">
+    <h1 class="text-5xl font-semibold mb-8 text-center pt-10 pb-10">Posts</h1>
+    @if (posts.length === 0) 
+    {
+        <h1 class="text-3xl font-semibold mb-8 text-center pt-10 pb-10">No hay posts</h1>
+    }
+    <div class="Posts grid-cols-4 gap-4 grid">
+        <div *ngFor="let post of posts" class="post">
+            <app-post
+            [url]="post.url"
+            [title]="post.title"
+            [postDate]="post.postDate"
+            [userId]="post.userId">
+            </app-post>
+        </div>    
+    </div>
+</body>
+
