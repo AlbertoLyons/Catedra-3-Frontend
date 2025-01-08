@@ -1,5 +1,8 @@
 <div class="flex flex-col items-center justify-center min-h-screen text-center">
+    <div *ngIf="tokenExpired"
+        class="text-3xl text-white bg-red-600 w-full">
+        Sesión expirada
+    </div>
     <app-login-form class="h-full w-full">
-        
     </app-login-form>
 </div>

@@ -31,18 +31,7 @@ export const routes: Routes = [
                 ),
             }
         ],
-        
-        //canActivate: [authGuard]
-
-    },
-    {
-        
-        path: 'posts/create',
-        loadComponent: () =>
-            import('./components/create-post-form/create-post-form.component').then(
-              (m) => m.CreatePostFormComponent
-            ),
-        
+        canActivate: [authGuard]
     },
     {
         path: '**',
