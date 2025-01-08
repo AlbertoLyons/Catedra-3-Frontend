@@ -3,6 +3,7 @@ import { Post } from '../../interfaces/post';
 import { PostComponent } from '../../components/post/post.component';
 import { CommonModule } from '@angular/common';
 import { PostService } from '../../services/post.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-posts',
   standalone: true,
@@ -13,6 +14,7 @@ import { PostService } from '../../services/post.service';
 })
 export class PostsComponent {
   private readonly postService = inject(PostService);
+  private readonly router = inject(Router);
   posts: Post[] = [];
 
   ngOnInit() {
@@ -28,6 +30,9 @@ export class PostsComponent {
     }).catch((error) => {
       console.log("Error on getPosts",error)
     });
+  }
+  createPost() {
+    this.router.navigate(['posts/create']);
   }
   formatDate(date: string): string {
     const d = new Date(date);

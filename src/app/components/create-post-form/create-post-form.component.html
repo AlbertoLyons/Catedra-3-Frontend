@@ -1,0 +1,57 @@
+<div class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm text-center relative">
+        <button class="bg-red-600 text-black px-4 py-2 rounded absolute top-2 right-2" (click)="cancel()">
+            X
+        </button>
+        <ngx-dropzone (change)="onSelect($event)">
+            <ngx-dropzone-label>Seleccione una imagen</ngx-dropzone-label>
+            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+              <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+          </ngx-dropzone>
+        <div class=" bg-[#CFCFCF] mt-4 flex justify-end space-x-3">
+            <form [formGroup]="createForm" (ngSubmit)="onSubmit()" class="flex flex-col px-12 pt-2">
+                <!-- Title -->
+                <label for="title">Titulo</label>
+                <input
+                class="border-2 border-gray-300 rounded-md p-2 m-2"
+                id="title"
+                type="title"
+                formControlName="title"
+                [class.border-red-500]="createForm.get('title')?.invalid && createForm.get('title')?.touched"
+                />
+                <div *ngIf="createForm.get('title')?.invalid && createForm.get('title')?.touched" class="error-message">
+                {{ getFieldError('title') }}
+                </div>
+                <!-- Date -->
+                <label for="date">Tipo</label>
+                <input
+                class="border-2 border-gray-300 rounded-md p-2 m-2"
+                id="date"
+                type="date"
+                formControlName="date"
+                [class.border-red-500]="createForm.get('date')?.invalid && createForm.get('date')?.touched"
+                />
+                <div *ngIf="createForm.get('date')?.invalid && createForm.get('date')?.touched" class="error-message">
+                  {{ getFieldError('date') }}
+                </div>
+                <!-- Boton ingresar -->
+                <div class="form-group pt-5 text-2xl">
+                    <button
+                    class="bg-[#8CFF4E] w-full text-black font-semibold rounded-md p-2 mb-5 transition-opacity"
+                    [ngClass]="{ 'opacity-50 cursor-not-allowed': createForm.invalid || loading }"
+                    type="submit"
+                    [disabled]="createForm.invalid || loading"
+                    >
+                        <ng-container *ngIf="loading; else normal">
+                        <span class="loading-spinner"></span> Procesando...
+                        </ng-container>
+                        <ng-template #normal>
+                        Ingresar
+                        </ng-template>
+                    </button>    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
